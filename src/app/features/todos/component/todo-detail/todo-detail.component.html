@@ -1,0 +1,72 @@
+<li class="list-group-item d-flex justify-content-between align-items-start">
+  <div class="ms-2 me-auto">
+    <div *ngIf="!isEdit" class="fw-bold" [ngClass]="getClass(todo.isDone)">
+      <input *ngIf="!forTrash" type="checkbox" [(ngModel)]="todo.isDone" />
+      {{ todo.task }}
+    </div>
+    <div *ngIf="isEdit" class="fw-bold" [ngClass]="getClass(todo.isDone)">
+      <input
+        type="text"
+        (keyup.enter)="edit()"
+        [(ngModel)]="todo.task"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div
+    *ngIf="forTrash"
+    class="btn-group"
+    role="group"
+    aria-label="Basic example"
+  >
+    <button (click)="restore()" class="btn btn-sm btn-success">
+      <fa-icon [icon]="icons.restore"></fa-icon>
+    </button>
+  </div>
+  <div
+    *ngIf="!forTrash"
+    class="btn-group"
+    role="group"
+    aria-label="Basic example"
+  >
+    <button
+      *ngIf="!isEdit && !isConfirmRemove"
+      (click)="isConfirmRemove = !isConfirmRemove"
+      class="btn btn-sm btn-danger"
+    >
+      <fa-icon [icon]="icons.remove"></fa-icon>
+    </button>
+    <button
+      *ngIf="isConfirmRemove"
+      class="btn btn-sm btn-success"
+      (click)="remove()"
+    >
+      <fa-icon [icon]="icons.confirm"></fa-icon>
+    </button>
+    <button
+      *ngIf="!isConfirmRemove"
+      (click)="edit()"
+      class="btn btn-sm"
+      [ngClass]="{ 'btn-success': isEdit, 'btn-warning': !isEdit }"
+    >
+      <div *ngIf="isEdit; then tptSave; else tptEdit"></div>
+      <ng-template #tptSave>
+        <fa-icon [icon]="icons.checklist"></fa-icon>
+      </ng-template>
+      <ng-template #tptEdit>
+        <fa-icon [icon]="icons.edit"></fa-icon>
+      </ng-template>
+    </button>
+
+    <button *ngIf="isEdit" (click)="edit()" class="btn btn-sm btn-secondary">
+      <fa-icon [icon]="icons.cancel"></fa-icon>
+    </button>
+    <button
+      *ngIf="isConfirmRemove"
+      (click)="isConfirmRemove = false"
+      class="btn btn-sm btn-secondary"
+    >
+      <fa-icon [icon]="icons.cancel"></fa-icon>
+    </button>
+  </div>
+</li>

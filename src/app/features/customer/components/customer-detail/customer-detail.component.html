@@ -1,0 +1,33 @@
+<li
+  *ngIf="customer"
+  class="list-group-item d-flex align-items-center list-group-item-action shadow-sm border-0 mb-2 p-3"
+>
+  <div class="me-auto">
+    <div class="fw-bold text-primary">{{ customer.name }}</div>
+    <small class="text-muted">{{ customer.email }}</small>
+  </div>
+
+  <span
+    class="badge rounded-pill text-light px-3 py-2"
+    [ngClass]="getStatus(customer.status)"
+  >
+    {{ customer.status | uppercase }}
+  </span>
+
+  <button
+    *ngIf="check"
+    class="btn btn-info ms-2"
+    type="button"
+    (click)="customerReservasi()"
+  >
+    <fa-icon [icon]="icons.choose"></fa-icon>
+  </button>
+</li>
+
+<li
+  *ngIf="!customer"
+  (click)="customerReservasi()"
+  class="list-group-item d-flex justify-content-center align-items-center shadow-sm p-2"
+>
+  No customer choice
+</li>

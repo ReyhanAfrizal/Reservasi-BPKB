@@ -1,0 +1,118 @@
+<div class="card">
+  <div class="card-body bg-info">
+    <h5 class="card-title d-flex justify-content-between p-auto m-auto">
+      <span>Reservation Form</span>
+      <app-reservasi-choice
+        (emitReservation)="onGetReservation($event)"
+      ></app-reservasi-choice>
+    </h5>
+  </div>
+
+  <div class="card-body">
+    <div class="col mb-3">
+      <app-customer-detail
+        [customer]="reservasi.customer"
+        [check]="false"
+      ></app-customer-detail>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nomor Kontrak</label>
+          <input
+            [(ngModel)]="reservasi.nomorKontrak"
+            type="text"
+            class="form-control"
+            placeholder="Masukkan nomor kontrak"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nomor BPKB</label>
+          <input
+            [(ngModel)]="reservasi.nomorBPKB"
+            type="text"
+            class="form-control"
+            placeholder="Masukkan nomor BPKB"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Tipe Kendaraan</label>
+          <select [(ngModel)]="reservasi.tipeKendaraan" class="form-select">
+            <option value="" disabled selected hidden>
+              Pilih Tipe Kendaraan
+            </option>
+            <option [ngValue]="'mobil'">Mobil</option>
+            <option [ngValue]="'motor'">Motor</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Biaya Real</label>
+          <input
+            [(ngModel)]="reservasi.real"
+            type="number"
+            class="form-control"
+            placeholder="Masukkan biaya real"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Jadwal</label>
+          <input
+            [(ngModel)]="reservasi.jadwal"
+            type="date"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Biaya Estimasi</label>
+          <input
+            [(ngModel)]="reservasi.estimasi"
+            type="number"
+            class="form-control"
+            placeholder="Masukkan biaya estimasi"
+          />
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+      </div>
+    </div>
+    <div class="row">
+      <app-reservasi-sisa [reservasi]="reservasi"></app-reservasi-sisa>
+    </div>
+
+    <div class="card-footer text-center p-3">
+      <button
+        *ngIf="!reservasi.id"
+        class="btn btn-success"
+        (click)="onCreate()"
+      >
+        Save <fa-icon [icon]="icons.save" class="ms-2"></fa-icon>
+      </button>
+
+      <button
+        *ngIf="reservasi.id && !whenReservationValid(reservasi.jadwal)"
+        class="btn btn-danger"
+        (click)="onRemove()"
+      >
+        Cancel <fa-icon [icon]="icons.stop" class="ms-2"></fa-icon>
+      </button>
+    </div>
+  </div>
+</div>

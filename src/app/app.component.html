@@ -1,0 +1,202 @@
+<body class="bg-info">
+  <app-navigation></app-navigation>
+  <div class="container mt-3 mb-4">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card shadow" @fadeInOut>
+          <div class="card-body">
+            <app-customer-choice></app-customer-choice>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card shadow" @fadeInOut>
+          <div class="card-body">
+            <app-reservasi-create></app-reservasi-create>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+</body>
+
+<!-- Show Table -->
+<div class="container">
+  <h2 class="text-center m-3">User Information</h2>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered shadow-sm">
+      <thead class="thead-dark table-info text-center">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Website</th>
+          <th>Company Name</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone }}</td>
+          <td>{{ user.website }}</td>
+          <td>{{ user.company.name }}</td>
+          <td>
+            {{ user.address.street }}, {{ user.address.suite }},
+            {{ user.address.city }} - {{ user.address.zipcode }} <br />
+            <small
+              >Geo: ({{ user.address.geo?.lat }},
+              {{ user.address.geo?.lng }})</small
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- App-Todo -->
+<div class="bg-info pb-5 pt-1">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col">
+        <app-todos></app-todos>
+      </div>
+      <div class="col">
+        <app-todos [title]="'Trash'" [forTrash]="true"></app-todos>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tampilkan Tabel Produk -->
+<div class="card">
+  <h1 class="text-center mt-3">Products</h1>
+
+  <div class="table-responsive">
+    <table
+      class="table table-bordered table-hover shadow-sm mx-auto table-info"
+      style="width: 60%"
+    >
+      <thead class="thead-light text-center">
+        <tr>
+          <th class="p-3">Title</th>
+          <th class="p-3">Stock</th>
+          <th class="p-3">Price</th>
+          <th class="p-3">Categories</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let product of products"
+          class="text-center"
+          [appAttr]="{ isDone: product.stock >= 20, color: 'text-white' }"
+        >
+          <td class="p-3">{{ product.title }}</td>
+          <td class="p-3">{{ product.stock }}</td>
+          <td class="p-3">{{ product.price }}</td>
+          <td class="p-3">
+            <div *ngFor="let category of product.categories">
+              <span>{{ category.name }}</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- day one -->
+<!-- <app-navigation></app-navigation>
+<div class="container mt-5">
+  <app-product-detail></app-product-detail>
+</div> -->
+
+<!-- <table [border]="1">
+  <tbody>
+    <tr>
+    <th>AppComponent</th>
+    <td>count = {{ count }}</td>
+    <td>
+    <button (click)="up()">UP</button>
+    <button (click)="down()">DOWN</button>
+    </td>
+    </tr>
+  </tbody>
+</table>
+<app-child-present
+  [totalCount]="count"
+  (countChanged)="handler($event)"></app-child-present> -->
+
+<!-- <app-navigation></app-navigation>
+<app-berkas
+  [oncom]="counter"
+  [product]="product"
+  (emit)="handler($event)"
+></app-berkas>
+
+<div class="mx-auto text-center shadow p-3 bg-info">
+  <h1>Container Component</h1>
+  <h3>"{{ counter }}"</h3>
+</div> -->
+<!-- Latihan -->
+<!-- <div class="form-group text-center mt-5">
+  <label>Font Size</label>
+  <input type="number" [(ngModel)]="fontSize" class="form-control" />
+</div>
+
+<div
+  (click)="isActive = !isActive"
+  [ngStyle]="{ 'fontSize.px': fontSize, color: isActive ? 'blue' : 'gray',  }"
+>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, recusandae,
+  illum cum qui voluptates obcaecati sit aut dolorum, vitae sint in! Cumque
+  quibusdam nam reiciendis impedit quam a ipsam cupiditate.
+</div>
+
+<div [ngStyle]="myObjectClass">
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque nobis sed
+  exercitationem temporibus itaque rerum neque atque amet commodi, eveniet totam
+  soluta molestiae minima asperiores debitis aliquid perspiciatis recusandae
+  minus.
+</div>
+
+<div [ngStyle]="myStyleClass" (click)="onChangeColor()">
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae, eos?
+  Impedit suscipit tempore maiores aliquid voluptates, quas eveniet delectus non
+  consequatur vel aliquam officia ratione voluptate vero, corporis dolorum
+  laboriosam.
+</div>
+
+<div class="text-center me-3">
+  <div class="form-group">
+    <input type="checkbox" [(ngModel)]="show" />
+    Aktifkan
+  </div>
+
+  <h1>Cara ngIf 1</h1>
+  <h5 *ngIf="show">Show = True</h5>
+  <h5 *ngIf="!show">Show = False</h5>
+
+  <h1>Cara ngIf 2</h1>
+  <h5 *ngIf="show; else a1">Show = True</h5>
+  <ng-template #a1>
+    <h5>Show = False</h5>
+  </ng-template>
+
+  <h1>Cara ngIf 3</h1>
+  <h5 *ngIf="show; then b1; else b2">Show = True</h5>
+  <ng-template #b1>
+    <h5>Show = True</h5>
+  </ng-template>
+  <ng-template #b2>
+    <h5>Show = False</h5>
+  </ng-template>
+</div> -->

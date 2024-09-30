@@ -1,0 +1,10 @@
+<div class="input-group mt-3">
+  <input
+    type="text"
+    class="form-control"
+    (keyup.enter)="search()"
+    placeholder="What are you doing today :)"
+    [(ngModel)]="todo.task"
+  />
+  <button class="btn btn-primary" type="button" (click)="add()"><fa-icon [icon]="icons.add"></fa-icon></button>
+</div>

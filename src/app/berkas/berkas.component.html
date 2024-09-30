@@ -1,0 +1,68 @@
+<!-- <div class="max-w-4xl mx-auto p-4">
+  
+  <h1 class="text-4xl font-extrabold text-gray-800 mb-6 text-center">{{ nama }}</h1>
+
+  <div class="overflow-x-auto rounded-lg shadow-lg">
+    <table class="table-auto border-collapse border border-gray-300 w-full text-left">
+      <tbody>
+        <tr class="hover:bg-gray-100 transition">
+          <th class="border border-gray-300 px-6 py-3 bg-gray-200 font-semibold">Harga</th>
+          <td class="border border-gray-300 px-6 py-3">{{ harga }}</td>
+        </tr>
+        <tr class="hover:bg-gray-100 transition">
+          <th class="border border-gray-300 px-6 py-3 bg-gray-200 font-semibold">Created</th>
+          <td class="border border-gray-300 px-6 py-3">{{ created }}</td>
+        </tr>
+        <tr class="hover:bg-gray-100 transition">
+          <th class="border border-gray-300 px-6 py-3 bg-gray-200 font-semibold">Pilihan Warna</th>
+          <td class="border border-gray-300 px-6 py-3">
+            {{ pilihanWarna[0] }}, {{ pilihanWarna[1] }}, 
+            {{ pilihanWarna[2] }}, {{ pilihanWarna[3] }}
+          </td>
+        </tr>
+        <tr class="hover:bg-gray-100 transition">
+          <th class="border border-gray-300 px-6 py-3 bg-gray-200 font-semibold">Diskon 30%</th>
+          <td class="border border-gray-300 px-6 py-3">{{ harga - harga * 0.3 }}</td>
+        </tr>
+        <tr class="hover:bg-gray-100 transition">
+          <th class="border border-gray-300 px-6 py-3 bg-gray-200 font-semibold">Pajak 11%</th>
+          <td class="border border-gray-300 px-6 py-3">{{ getPajak(0.11, harga - harga * 0.3) }}</td>
+        </tr>
+        <tr class="hover:bg-gray-100 transition">
+          <th class="border border-gray-300 px-6 py-3 bg-gray-200 font-semibold">Foto</th>
+          <td class="border border-gray-300 px-6 py-3">
+            <img
+              class="w-64 h-64 object-cover mx-auto"
+              src="{{
+                'https://images.tokopedia.net/img/cache/900/VqbcmM/2024/9/3/' + foto
+              }}"
+              alt="Product Image"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-6 text-center">
+    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+      Buy Now
+    </button>
+  </div>
+</div> -->
+
+<div class="text-center shadow p-3">
+  <h1>Component Presenter</h1>
+  {{ oncom }}
+  <br>
+
+  <button class="btn btn-success m-2" (click)="up()">Up</button>
+  <br>
+  <button class="btn btn-danger" (click)="down()">Down</button>
+  <br>
+  <br>
+  {{ product.title }}
+</div>
+
+
+

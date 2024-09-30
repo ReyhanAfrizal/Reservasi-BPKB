@@ -1,0 +1,7 @@
+<ol class="list-group list-group-numbered">
+  <app-todo-detail
+    *ngFor="let todo of getTodos()"
+    [todo]="todo"
+    [forTrash]="forTrash"
+  ></app-todo-detail>
+</ol>

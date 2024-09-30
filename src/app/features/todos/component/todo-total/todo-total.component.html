@@ -1,0 +1,5 @@
+<div class="d-flex justify-content-between">
+  <div>Total</div>
+  <div *ngIf="forTrash">{{ totalTrash }}</div>
+  <div *ngIf="!forTrash">{{ totalTodo }}</div>
+</div>

@@ -1,0 +1,8 @@
+<div class="text-center">
+  <h5 *ngIf="reservasi.estimasi > reservasi.real">
+    Sisa {{ reservasi.estimasi - reservasi.real | currency : "IDR" }}
+  </h5>
+  <h5 *ngIf="reservasi.estimasi < reservasi.real">
+    Tagihan {{ reservasi.real - reservasi.estimasi | currency : "IDR" }}
+  </h5>
+</div>
