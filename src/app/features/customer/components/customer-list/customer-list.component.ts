@@ -6,7 +6,7 @@ import { IPagination } from '../../../../cores/interfaces/i-pagination';
 @Component({
   selector: 'app-customer-list',
   templateUrl: './customer-list.component.html',
-  styleUrls: ['./customer-list.component.css'], // corrected styleUrls
+  styleUrls: ['./customer-list.component.css'],
 })
 export class CustomerListComponent implements OnInit {
   page: number = 1;
@@ -17,7 +17,6 @@ export class CustomerListComponent implements OnInit {
   ngOnInit(): void {
     this.customerService.all().subscribe((resp: IPagination<ICustomer[]>) => {
       this.customerService.customers = resp;
-      console.log('Data Panggil', resp);
     });
   }
 

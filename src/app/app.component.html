@@ -1,3 +1,6 @@
+<!-- <app-navigator></app-navigator>
+<router-outlet></router-outlet> -->
+
 <body class="bg-info">
   <app-navigation></app-navigation>
   <div class="container mt-3 mb-4">
@@ -22,7 +25,7 @@
 </body>
 
 <!-- Show Table -->
-<div class="container">
+<!-- <div class="container">
   <h2 class="text-center m-3">User Information</h2>
 
   <div class="table-responsive">
@@ -60,10 +63,10 @@
       </tbody>
     </table>
   </div>
-</div>
+</div> -->
 
 <!-- App-Todo -->
-<div class="bg-info pb-5 pt-1">
+<!-- <div class="bg-info pb-5 pt-1">
   <div class="container mt-5">
     <div class="row">
       <div class="col">
@@ -74,10 +77,10 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Tampilkan Tabel Produk -->
-<div class="card">
+<!-- <div class="card">
   <h1 class="text-center mt-3">Products</h1>
 
   <div class="table-responsive">
@@ -111,7 +114,425 @@
       </tbody>
     </table>
   </div>
-</div>
+</div> -->
+
+<!-- Form Angular -->
+<!-- <div class="container my-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <form #form="ngForm" (submit)="onSubmit()">
+          <div class="card-body">
+            <div class="row">
+              <div class="form-group mb-3 col">
+                <label class="mb-2">Email</label>
+                <input
+                  class="form-control"
+                  type="email"
+                  #email="ngModel"
+                  name="email"
+                  ngModel
+                  required
+                  email
+                  [ngClass]="{
+                    'border-success': email.valid,
+                  }"
+                />
+                <app-message-validation [field]="email" [label]="'email'" />
+              </div>
+              <div class="form-group mb-3 col">
+                <label class="mb-2">Username</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  #username="ngModel"
+                  name="username"
+                  ngModel
+                  required
+                  [maxlength]="10"
+                  [minlength]="5"
+                  pattern="^[a-zA-Z]+$"
+                  [ngClass]="{
+                    'border-success': username.valid,
+                  }"
+                />
+                <app-message-validation
+                  [field]="username"
+                  [label]="'username'"
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="form-group col">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    ngModel
+                    #menikah="ngModel"
+                    name="menikah"
+                    required
+                  />
+                  <label class="form-check-label"> Menikah </label>
+                </div>
+
+                <div
+                  *ngIf="!menikah.valid && (menikah.dirty || menikah.touched)"
+                  class="text-helper text-danger"
+                >
+                  <span *ngIf="menikah.errors!['required']">
+                    Menikah is required
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group col">
+                <label>Gender</label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    ngModel
+                    #gender="ngModel"
+                    name="gender"
+                    required
+                    value="pria"
+                  />
+                  <label class="form-check-label"> Pria </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    ngModel
+                    #gender="ngModel"
+                    name="gender"
+                    required
+                    value="wanita"
+                  />
+                  <label class="form-check-label"> Wanita </label>
+                </div>
+
+                <app-message-validation [field]="gender" [label]="'gender'" />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="form-group">
+                <label class="mb-2">Hobi</label>
+                <select
+                  class="form-select"
+                  name="hobi"
+                  required
+                  ngModel
+                  #hobi="ngModel"
+                >
+                  <option [ngValue]="null">Open this select hobi</option>
+                  <option [ngValue]="1">Berenang</option>
+                  <option [ngValue]="2">Mancing</option>
+                  <option [ngValue]="3">Tidur</option>
+                </select>
+
+                <app-message-validation [field]="hobi" [label]="'hobi'" />
+              </div>
+            </div>
+
+            <div class="row mb-3" ngModelGroup="address">
+              <div class="form-group col">
+                <label class="mb-2">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="city"
+                  #addressCity="ngModel"
+                  ngModel
+                  required
+                />
+
+                <app-message-validation
+                  [field]="addressCity"
+                  [label]="'city'"
+                />
+              </div>
+
+              <div class="form-group col">
+                <label class="mb-2">Zip Code</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="zipCode"
+                  ngModel
+                  required
+                  #addressZipCode="ngModel"
+                />
+
+                <app-message-validation
+                  [field]="addressZipCode"
+                  [label]="'zip code'"
+                />
+              </div>
+            </div>
+
+            <div class="row" ngModelGroup="address">
+              <div class="form-group col">
+                <label class="mb-2">Street</label>
+                <textarea
+                  class="form-control"
+                  #addressStreet="ngModel"
+                  name="street"
+                  ngModel
+                  required
+                ></textarea>
+                <app-message-validation
+                  [field]="addressStreet"
+                  [label]="'street'"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer d-flex gap-3">
+            <button
+              [disabled]="form.invalid"
+              class="btn btn-primary"
+              type="submit"
+            >
+              Save
+            </button>
+            <button
+              class="btn btn-secondary"
+              (click)="form.reset()"
+              type="button"
+            >
+              Reset
+            </button>
+            <button class="btn btn-info" (click)="onDefault()" type="button">
+              Default
+            </button>
+
+            <button
+              class="btn btn-info"
+              (click)="onChangeAddress()"
+              type="button"
+            >
+              Change Address
+            </button>
+            <button class="btn btn-info" (click)="onChangeHobi()" type="button">
+              Change Hobi
+            </button>
+            <button
+              class="btn btn-secondary"
+              (click)="onPatching()"
+              type="button"
+            >
+              Patch Level 1
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Form Reactive -->
+<!-- <app-card>
+  <div class="card-body">
+    <form [formGroup]="formRF" (submit)="onSubmit()">
+      <div class="form-group mb-3">
+        <label>Harga</label>
+        <input
+          type="number"
+          name="harga"
+          formControlName="harga"
+          class="form-control"
+        />
+        <h5>Harga Total: {{ hargaAfterPPN }}</h5>
+        <app-message-validation
+          [field]="formRF.get('harga')"
+          [label]="'harga'"
+        ></app-message-validation>
+      </div>
+      <div class="form-group mb-3">
+        <label>Name</label>
+        <input type="text" formControlName="inisial" class="form-control" />
+        <app-message-validation
+          [field]="formRF.get('inisial')"
+          [label]="'Inisial'"
+        ></app-message-validation>
+      </div>
+
+      <div class="form-group">
+        <label>Is Married</label>
+        <div class="form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            formControlName="nikah"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="form-check">
+          <input
+            type="radio"
+            class="form-check-input"
+            formControlName="gen"
+            value="men"
+          />
+          <label>Men</label>
+        </div>
+        <div class="form-check">
+          <input
+            type="radio"
+            class="form-check-input"
+            formControlName="gen"
+            value="women"
+          />
+          <label>Women</label>
+        </div>
+
+        <app-message-validation
+          [field]="formRF.get('gen')"
+          [label]="'gen'"
+        ></app-message-validation>
+      </div>
+      <div class="form-group">
+        <label>Hobi</label>
+        <select class="form-control" formControlName="hobi">
+          <option [ngValue]="null">Pilih Hobimu</option>
+          <option *ngFor="let h of listOfHobi" [ngValue]="h.id">
+            {{ h.name }}
+          </option>
+        </select>
+        <app-message-validation
+          [field]="formRF.get('hobi')"
+          [label]="'hobi'"
+        ></app-message-validation>
+      </div>
+      <h2>Address</h2>
+      <div formGroupName="alamat">
+        <div class="form-group mb-3">
+          <label>City</label>
+          <input type="text" class="form-control" formControlName="kota" />
+          <app-message-validation
+            [field]="formRF.get('alamat')?.get('kota')"
+            [label]="'Kota'"
+          ></app-message-validation>
+        </div>
+
+        <div class="form-group mb-3">
+          <label>Street</label>
+          <textarea class="form-control" formControlName="jalan"></textarea>
+          <app-message-validation
+            [field]="formRF.get('alamat')?.get('jalan')"
+            [label]="'Jalan'"
+          ></app-message-validation>
+        </div>
+
+        <div class="form-group mb-3">
+          <label>Zip Code</label>
+          <input type="text" class="form-control" formControlName="kodepos" />
+          <app-message-validation
+            [field]="formRF.get('alamat')?.get('kodepos')"
+            [label]="'Kodepos'"
+          ></app-message-validation>
+        </div>
+      </div>
+      <button
+        [disabled]="formRF.invalid"
+        type="button"
+        (click)="onSubmitFR()"
+        class="btn btn-primary mt-3"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</app-card> -->
+
+<!-- Form Reactive Blalal -->
+<!-- <div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-lg p-4 mb-5 bg-white rounded">
+        <h2 class="text-center mb-4 text-primary">Program Kasir</h2>
+        <form [formGroup]="formRF" (submit)="onSubmit()">
+          <!-- Harga Input -->
+<!-- <div class="form-group mb-4">
+            <label for="harga" class="form-label">Harga</label>
+            <input
+              type="number"
+              id="harga"
+              name="harga"
+              formControlName="harga"
+              class="form-control form-control-lg"
+              placeholder="Masukkan harga"
+            />
+            <app-message-validation
+              [field]="formRF.get('harga')"
+              [label]="'harga'"
+            ></app-message-validation>
+          </div> -->
+
+<!-- Diskon Input -->
+<!-- <div class="form-group mb-4">
+            <label for="diskon" class="form-label">Diskon (%)</label>
+            <input
+              type="number"
+              id="diskon"
+              name="diskon"
+              formControlName="diskon"
+              class="form-control form-control-lg"
+              placeholder="Masukkan diskon"
+            />
+            <app-message-validation
+              [field]="formRF.get('diskon')"
+              [label]="'diskon'"
+            ></app-message-validation>
+          </div> -->
+
+<!-- Display Diskon and Harga Total -->
+<!-- <div class="mb-4">
+            <h5 class="text-muted">
+              Diskon: <span class="text-success">{{ diskonData }}</span>
+            </h5>
+            <h5 class="text-muted">
+              Harga Total: <span class="text-success">{{ hargaAfterPPN }}</span>
+            </h5>
+          </div> -->
+
+<!-- Bayar Input -->
+<!-- <div class="form-group mb-4">
+            <label for="bayar" class="form-label">Bayar</label>
+            <input
+              type="number"
+              id="bayar"
+              name="bayar"
+              formControlName="bayar"
+              class="form-control form-control-lg"
+              placeholder="Masukkan jumlah bayar"
+            />
+            <app-message-validation
+              [field]="formRF.get('bayar')"
+              [label]="'bayar'"
+            ></app-message-validation>
+          </div> -->
+
+<!-- Display Sisa -->
+<!-- <div class="mb-4">
+            <h5 class="text-muted">
+              Sisa: <span class="text-success">{{ sisa }}</span>
+            </h5>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- <app-form-builder></app-form-builder> -->
 
 <!-- day one -->
 <!-- <app-navigation></app-navigation>

@@ -1,0 +1,133 @@
+<body class="bg-secondary p-1">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-12 d-flex gap-2">
+        <button (click)="addEmployee()" class="btn btn-primary">
+          <fa-icon [icon]="icon.add"></fa-icon
+          ><fa-icon [icon]="icon.card" class="ms-2"></fa-icon>
+        </button>
+        <button (click)="onSubmit()" class="btn btn-dark">
+          <fa-icon [icon]="icon.save"></fa-icon>
+        </button>
+        <button (click)="isGrid = !isGrid" class="btn btn-dark">
+          <fa-icon *ngIf="isGrid" [icon]="icon.grid"></fa-icon>
+          <fa-icon *ngIf="!isGrid" [icon]="icon.list"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <form class="container my-4" [formGroup]="form" (submit)="onSubmit()">
+    <div class="row mb-4" *ngIf="getEmployees().length > 0">
+      <div class="col-12 d-flex gap-3">
+        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">
+          <fa-icon [icon]="icon.save"></fa-icon>
+        </button>
+      </div>
+    </div>
+    <div class="row row-gap-3" formArrayName="employees">
+      <div
+        *ngFor="let e of getEmployees().controls; let indexEmployee = index"
+        [ngClass]="{ 'col-12': isGrid, 'col-6': !isGrid }"
+      >
+        <div class="card" [formGroupName]="indexEmployee">
+          <div class="card-header d-flex justify-content-between">
+            <span>Employee #{{ indexEmployee + 1 }}</span>
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              type="button"
+              (click)="removeEmployee(indexEmployee)"
+            >
+              <fa-icon [icon]="icon.remove"></fa-icon>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="form-group mb-2">
+              <label>First Name</label>
+              <input
+                type="text"
+                formControlName="firstName"
+                class="form-control"
+              />
+              <app-message-validation
+                [field]="getEmployee(indexEmployee).get('firstName')"
+                [label]="'first name'"
+              ></app-message-validation>
+            </div>
+            <div class="form-group mb-2">
+              <label>Last Name</label>
+              <input
+                type="text"
+                formControlName="lastName"
+                class="form-control"
+              />
+              <app-message-validation
+                [field]="getEmployee(indexEmployee).get('lastName')"
+                [label]="'last name'"
+              ></app-message-validation>
+            </div>
+          </div>
+          <table class="table striped">
+            <thead>
+              <tr>
+                <th>Skill</th>
+                <th>Experience</th>
+                <th>#</th>
+              </tr>
+              <tr>
+                <th colspan="3">
+                  <button
+                    class="btn btn-primary"
+                    (click)="addSkill(indexEmployee)"
+                  >
+                    Add Skill
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody formArrayName="skills">
+              <tr
+                *ngFor="
+                  let s of getSkills(indexEmployee).controls;
+                  let indexSkill = index
+                "
+              >
+                <td [formGroupName]="indexSkill">
+                  <input
+                    type="text"
+                    formControlName="skill"
+                    class="form-control"
+                  />
+                  <app-message-validation
+                    [field]="getSkill(indexEmployee, indexSkill).get('skill')"
+                    [label]="'Skill'"
+                  ></app-message-validation>
+                </td>
+                <td [formGroupName]="indexSkill">
+                  <input
+                    type="number"
+                    formControlName="exp"
+                    class="form-control"
+                  />
+                  <app-message-validation
+                    [field]="getSkill(indexEmployee, indexSkill).get('exp')"
+                    [label]="'Exp'"
+                  ></app-message-validation>
+                </td>
+                <td>
+                  <button
+                    class="btn btn-danger"
+                    type="button"
+                    (click)="removeSkill(indexEmployee, indexSkill)"
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>

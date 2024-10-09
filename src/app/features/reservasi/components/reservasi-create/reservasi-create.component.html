@@ -93,11 +93,12 @@
         <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
       </div>
     </div>
+
     <div class="row">
       <app-reservasi-sisa [reservasi]="reservasi"></app-reservasi-sisa>
     </div>
 
-    <div class="card-footer text-center p-3">
+    <div class="card-footer text-center p-2">
       <button
         *ngIf="!reservasi.id"
         class="btn btn-success"
@@ -116,3 +117,5 @@
     </div>
   </div>
 </div>
+
+{{ data | json }}

@@ -3,6 +3,7 @@ import { IReservasi } from '../../../../cores/interfaces/i-reservasi';
 import { Reservasi } from '../../../../cores/models/reservasi';
 import { ReservasiService } from '../../../../cores/services/reservasi.service';
 import { faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-reservasi-create',
@@ -17,6 +18,8 @@ export class ReservasiCreateComponent {
 
   time = { hour: 8, minute: 30 };
   dateNow: number = Date.now();
+
+  data: any;
 
   constructor(private reservasiService: ReservasiService) {}
 
@@ -53,5 +56,11 @@ export class ReservasiCreateComponent {
     this.reservasiService.remove(this.reservasi.id).subscribe((resp: any) => {
       this.reservasiService.reservasi = new Reservasi();
     });
+  }
+
+  onSubmit(form: NgForm) {
+    console.log('Data anda tidak lengkap!', form.valid);
+    this.data = form.value;
+    console.log(form.value);
   }
 }

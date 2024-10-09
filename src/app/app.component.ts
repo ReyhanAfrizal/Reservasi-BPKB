@@ -1,10 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ISimpleProduct } from './features/products/interfaces/i-product';
 import { UserService } from './cores/services/user.service';
 import { IUser } from './cores/interfaces/i-user';
 import { ICustomer } from './cores/interfaces/i-customer';
 import { trigger, transition, style, animate } from '@angular/animations';
+import {
+  NgForm,
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
+import { timeout } from 'rxjs';
 
 interface ICategory {
   id: number;
@@ -24,6 +32,48 @@ class MyStyle {
   'font-weight': string = 'bolder';
 }
 
+class Hobi {
+  id: number = 0;
+  name: string = '';
+
+  constructor(id: number, name: string) {
+    this.id = id;
+    this.name = name;
+  }
+}
+
+const MOCK_DATA = {
+  address: { city: 'Jakarta', zipCode: '40614', street: 'Jakarta' },
+  email: 'reyhanafri@mail',
+  gender: 'pria',
+  hobi: 1,
+  menikah: true,
+  username: 'reyhanafri',
+};
+
+const VALIDATORS = {
+  inisialValid: [Validators.required, Validators.maxLength(15)],
+  genValid: [Validators.required],
+  hobiValid: [Validators.required],
+  alamat: {
+    kotaValid: [
+      Validators.required,
+      Validators.maxLength(15),
+      Validators.minLength(4),
+    ],
+    jalanValid: [
+      Validators.required,
+      Validators.maxLength(100),
+      Validators.minLength(10),
+    ],
+    kodeposValid: [
+      Validators.required,
+      Validators.maxLength('11620'.length),
+      Validators.minLength('11620'.length),
+    ],
+  },
+};
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -39,15 +89,129 @@ class MyStyle {
   ],
 })
 export class AppComponent implements OnInit {
+  @ViewChild('form') form!: NgForm;
   users: IUser[] = [];
   customer: ICustomer[] = [];
+
+  formF2: FormGroup = new FormGroup({
+    price: new FormControl(0),
+    diskon: new FormControl(0),
+  });
+
+  ppn: number = 0.11;
+  hargaAfterPPN: number = 0;
+  diskonData: number = 0;
+  sisa: number = 0;
+
+  // formRF: FormGroup;
+
+  // constructor(private formBuilder: FormBuilder) {
+  //   this.formRF = this.formBuilder.group({
+  //     inisial: new FormControl['', VALIDATORS.inisialValid],
+  //     nikah: new FormControl[false],
+  //     gen: new FormControl['', VALIDATORS.genValid],
+  //     hobi: new FormControl[0, VALIDATORS.hobiValid],
+  //     alamat: new FormGroup({
+  //       kota: new FormControl['', VALIDATORS.alamat.kotaValid],
+  //       jalan: new FormControl['', VALIDATORS.alamat.jalanValid],
+  //       kodepos: new FormControl['', VALIDATORS.alamat.kodeposValid],
+  //     }),
+  //   });
+  // }
+
+  formRF: FormGroup = new FormGroup({
+    inisial: new FormControl('', VALIDATORS.inisialValid),
+    nikah: new FormControl(),
+    harga: new FormControl(0),
+    diskon: new FormControl(0),
+    grandtotal: new FormControl(0),
+    bayar: new FormControl(0),
+    kembalian: new FormControl(0),
+    gen: new FormControl('', VALIDATORS.genValid),
+    hobi: new FormControl(0, VALIDATORS.hobiValid),
+    alamat: new FormGroup({
+      kota: new FormControl('', VALIDATORS.alamat.kotaValid),
+      jalan: new FormControl('', VALIDATORS.alamat.jalanValid),
+      kodepos: new FormControl('', VALIDATORS.alamat.kodeposValid),
+    }),
+  });
+
+  listOfHobi: Hobi[] = [
+    new Hobi(1, 'Memasak'),
+    new Hobi(2, 'Mancing'),
+    new Hobi(3, 'Membaca'),
+  ];
+
+  account: {
+    username: string;
+    email: string;
+  } = { username: '', email: '' };
+  onSubmit() {
+    console.log('Hello Form');
+    this.account = this.form.value;
+    console.log(this.form.value);
+  }
+
+  onSubmitFR() {
+    if (this.form.valid) {
+      console.log(this.formRF.value);
+    }
+  }
+
+  onDefault() {
+    this.form.setValue(MOCK_DATA);
+  }
+
+  onChangeHobi() {
+    this.form.controls['hobi'].setValue(3);
+  }
+
+  onPatching() {
+    let obj = {
+      menikah: true,
+      gender: 'wanita',
+    };
+    this.form.control.patchValue(obj);
+  }
+
+  onChangeAddress() {
+    let obj = {
+      city: 'Jakarta Barat',
+    };
+
+    let formGroup = this.form.controls['address'] as FormGroup;
+    formGroup.patchValue(obj);
+  }
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.all().subscribe((resp: IUser[]) => {
-      this.users = resp;
-    });
+    // this.userService.all().subscribe((resp: IUser[]) => {
+    //   this.users = resp;
+    // });
+    // setTimeout(() => {
+    //   this.form.setValue(MOCK_DATA);
+    // }, 500);
+    // this.formRF.get('name')?.statusChanges.subscribe((status: string) => {
+    //   console.log('Listen status name field: ', status);
+    // });
+    // this.formRF.get('hobi')?.valueChanges.subscribe((value: number) => {
+    //   console.log('Listen value hobi field: ', value);
+    // });
+    // this.formRF.get('diskon')?.valueChanges.subscribe((value: number) => {
+    //   let diskonisi = value;
+    //   this.diskonData = diskonisi;
+    // });
+    // this.formRF.get('harga')?.valueChanges.subscribe((value: number) => {
+    //   let hargaSetelahDiskon = value * this.diskonData;
+    //   let hargadiskon = value - hargaSetelahDiskon;
+    //   let hargaPPN = this.ppn * hargadiskon;
+    //   this.hargaAfterPPN = hargaPPN + hargadiskon;
+    // });
+    // this.formRF.get('bayar')?.valueChanges.subscribe((value: number) => {
+    //   let kembali = Math.abs(value - this.hargaAfterPPN);
+    //   this.sisa = kembali;
+    // });
   }
 
   //

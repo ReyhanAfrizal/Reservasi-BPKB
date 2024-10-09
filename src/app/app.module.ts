@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BerkasComponent } from './berkas/berkas.component';
 import { ProductDetailComponent } from './features/products/components/product-detail/product-detail.component';
 import { NavigationComponent } from './shared/products/components/navigation/navigation.component';
@@ -33,6 +33,16 @@ import { ReservasiSearchComponent } from './features/reservasi/components/reserv
 import { ReservasiSisaComponent } from './features/reservasi/components/reservasi-sisa/reservasi-sisa.component';
 import { CustomerPageComponent } from './features/customer/components/customer-page/customer-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageValidationComponent } from './shared/components/message-validation/message-validation.component';
+import { CardComponent } from './components/card/card.component';
+import { FormBuilderComponent } from './components/form-builder/form-builder.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ErrorComponent } from './pages/error/error.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { ProductComponent } from './pages/product/product.component';
+import { ProductService } from './services/product.service';
+import { NavigatorComponent } from './components/navigator/navigator.component';
+import { ProductItemsComponent } from './pages/product-items/product-items.component';
 
 @NgModule({
   declarations: [
@@ -59,16 +69,32 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReservasiSearchComponent,
     ReservasiSisaComponent,
     CustomerPageComponent,
+    MessageValidationComponent,
+    CardComponent,
+    FormBuilderComponent,
+    HomeComponent,
+    ErrorComponent,
+    ContactComponent,
+    ProductComponent,
+    NavigatorComponent,
+    ProductItemsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     FontAwesomeModule,
     BrowserAnimationsModule,
   ],
-  providers: [TodoService, UserService, CustomerService, provideHttpClient()],
+  providers: [
+    TodoService,
+    UserService,
+    CustomerService,
+    provideHttpClient(),
+    ProductService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
